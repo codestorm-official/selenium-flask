@@ -44,7 +44,7 @@ chromedriver
 geckodriver
 IEDriverServer.exe
 
-# Ignore FastAPI auto-generated files
+# Ignore Python package manager generated files
 .fastapi/
 __pypackages__/
 
