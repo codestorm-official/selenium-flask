@@ -51,6 +51,7 @@ def home():
         {
             "status": "selenium-flask ready",
             "selenium_url": SELENIUM_URL,
+            "test_endpoint": "GET /scrape",
         }
     )
 

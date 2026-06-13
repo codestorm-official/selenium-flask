@@ -69,7 +69,7 @@ values in the Flask service Variables tab.
 
 | Route | Description |
 | ----- | ----------- |
-| `/` | Basic status check |
+| `/` | Basic status check and scrape test endpoint hint |
 | `/scrape` | Example scraper using the remote Selenium Chrome service |
 
 ## Local Development
