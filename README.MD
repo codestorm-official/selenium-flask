@@ -54,6 +54,7 @@ values in the Flask service Variables tab.
 | `PORT` | `8000` | HTTP port used by Gunicorn |
 | `SELENIUM_URL` | `http://selenium.railway.internal:4444/wd/hub` | Selenium Remote WebDriver URL |
 | `SCRAPE_URL` | `https://www.scrapethissite.com/` | URL loaded by the example scraper |
+| `LOG_LEVEL` | `INFO` | Application log level |
 | `GUNICORN_HOST` | `0.0.0.0` | Host used when `GUNICORN_BIND` is empty |
 | `GUNICORN_BIND` | empty | Optional full bind override, for example `0.0.0.0:8000` |
 | `GUNICORN_WORKERS` | `2` | Number of Gunicorn workers |

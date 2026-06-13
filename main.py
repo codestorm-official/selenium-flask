@@ -1,4 +1,6 @@
+import logging
 import os
+import time
 
 from dotenv import load_dotenv
 from flask import Flask, jsonify
@@ -15,6 +17,11 @@ SELENIUM_URL = os.getenv(
 SCRAPE_URL = os.getenv("SCRAPE_URL", "https://www.scrapethissite.com/")
 
 app = Flask(__name__)
+logging.basicConfig(
+    level=os.getenv("LOG_LEVEL", "INFO"),
+    format="%(asctime)s %(levelname)s [%(name)s] %(message)s",
+)
+logger = logging.getLogger(__name__)
 
 
 def init_driver() -> webdriver.Remote:
@@ -51,18 +58,38 @@ def home():
 @app.get("/scrape")
 def scrape():
     driver = None
+    started_at = time.monotonic()
+
+    logger.info("Starting scrape url=%s selenium_url=%s", SCRAPE_URL, SELENIUM_URL)
 
     try:
         driver = init_driver()
         driver.get(SCRAPE_URL)
+        title = driver.title
+        duration = time.monotonic() - started_at
+
+        logger.info(
+            "Finished scrape url=%s title=%r duration=%.2fs",
+            SCRAPE_URL,
+            title,
+            duration,
+        )
 
         return jsonify(
             {
                 "url": SCRAPE_URL,
-                "title": driver.title,
+                "title": title,
             }
         )
     except WebDriverException as exc:
+        duration = time.monotonic() - started_at
+        logger.exception(
+            "Failed scrape url=%s duration=%.2fs error=%s",
+            SCRAPE_URL,
+            duration,
+            exc.msg,
+        )
+
         return (
             jsonify(
                 {
